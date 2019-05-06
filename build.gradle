@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'com.mojang'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'com.google.code.findbugs:jsr305:2.0.1'
+}
+
+mainClassName = "com.mojang.slicer.Main"
+
+processResources {
+   from("LICENSE")
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
