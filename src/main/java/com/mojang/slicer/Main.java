@@ -6,7 +6,8 @@ package com.mojang.slicer;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,24 +29,7 @@ public class Main {
 
     public static final Color REMOVED_MARKER = new Color(128, 0, 0, 128);
 
-    private static class Box {
-        public final int x;
-        public final int y;
-        public final int w;
-        public final int h;
-
-        public final int totalW;
-        public final int totalH;
-
-        public Box(final int x, final int y, final int w, final int h, final int totalW, final int totalH) {
-            this.x = x;
-            this.y = y;
-            this.w = w;
-            this.h = h;
-            this.totalW = totalW;
-            this.totalH = totalH;
-        }
-
+    private record Box(int x, int y, int w, int h, int totalW, int totalH) {
         public int scaleX(final int imgWidth) {
             return x * imgWidth / totalW;
         }
@@ -191,7 +175,7 @@ public class Main {
         return new InputFile(path).outputs(outputs);
     }
 
-    private static final List<InputFile> INPUTS = Arrays.asList(
+    private static final List<InputFile> INPUTS = List.of(
         input("assets/minecraft/textures/painting/paintings_kristoffer_zetterstrand.png",
             painting("back", 15, 0, 1, 1),
 

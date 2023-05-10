@@ -6,7 +6,11 @@ plugins {
 group 'com.mojang'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
