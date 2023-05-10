@@ -3,50 +3,14 @@
 
 package com.mojang.slicer;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import javax.imageio.ImageIO;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URI;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
 @ParametersAreNonnullByDefault
 public class Main {
-
-    public static final Color REMOVED_MARKER = new Color(128, 0, 0, 128);
-
-    private record Box(int x, int y, int w, int h, int totalW, int totalH) {
-        public int scaleX(final int imgWidth) {
-            return x * imgWidth / totalW;
-        }
-
-        public int scaleY(final int imgHeight) {
-            return y * imgHeight / totalH;
-        }
-
-        public int scaleW(final int imgWidth) {
-            return w * imgWidth / totalW;
-        }
-
-        public int scaleH(final int imgHeight) {
-            return h * imgHeight / totalH;
-        }
-    }
-
     private static Box b256(final int x, final int y, final int w, final int h) {
         return new Box(x, y, w, h, 256, 256);
     }
@@ -67,77 +31,6 @@ public class Main {
         newImg.getGraphics().drawImage(img, dx, dy, width, height, null);
         return newImg;
     };
-
-    private static class OutputFile {
-        private final String path;
-        private final Box box;
-        private final List<UnaryOperator<BufferedImage>> transformers = new ArrayList<>();
-
-        public OutputFile(final String path, final Box box) {
-            this.path = path;
-            this.box = box;
-        }
-
-        public void process(final Path root, final BufferedImage image) throws IOException {
-            final int width = image.getWidth();
-            final int height = image.getHeight();
-
-            final Path outputPath = root.resolve(path);
-            final int x = box.scaleX(width);
-            final int y = box.scaleY(height);
-            final int w = box.scaleW(width);
-            final int h = box.scaleH(height);
-            BufferedImage subImage = image.getSubimage(x, y, w, h);
-
-            for (final UnaryOperator<BufferedImage> op : transformers) {
-                subImage = op.apply(subImage);
-            }
-
-            writeImage(outputPath, subImage);
-
-            final Graphics graphics = image.getGraphics();
-            graphics.setColor(REMOVED_MARKER);
-            graphics.fillRect(x, y, w, h);
-        }
-
-        public OutputFile apply(final UnaryOperator<BufferedImage> transform) {
-            transformers.add(transform);
-            return this;
-        }
-    }
-
-    private static class InputFile {
-        private final String path;
-        private final List<OutputFile> outputs = new ArrayList<>();
-
-        public InputFile(final String path) {
-            this.path = path;
-        }
-
-        public InputFile outputs(final OutputFile... files) {
-            outputs.addAll(Arrays.asList(files));
-            return this;
-        }
-
-        public void process(final Path inputRoot, final Path outputRoot, @Nullable final Path leftoverRoot) throws IOException {
-            final Path inputPath = inputRoot.resolve(this.path);
-            if (Files.exists(inputPath)) {
-                try (final InputStream is = Files.newInputStream(inputPath)) {
-                    final BufferedImage image = ImageIO.read(is);
-                    for (final OutputFile outputFile : outputs) {
-                        outputFile.process(outputRoot, image);
-                    }
-
-                    if (leftoverRoot != null) {
-                        final Path leftoverPath = leftoverRoot.resolve(this.path);
-                        writeImage(leftoverPath, image);
-                    }
-                }
-            } else {
-                System.err.println("Input file " + inputPath.toAbsolutePath() + " not found, skipping!");
-            }
-        }
-    }
 
     private static OutputFile gridSprite(final String path, final int x, final int y, final int w, final int h, final int xOff, final int yOff, final int xScale, final int yScale) {
         return new OutputFile(path, b256(xScale * x + xOff, yScale * y + yOff, w * xScale, h * yScale));
@@ -370,50 +263,7 @@ public class Main {
         )
     );
 
-    private static void writeImage(final Path path, final BufferedImage image) throws IOException {
-        Files.createDirectories(path.getParent());
-        Files.deleteIfExists(path);
-        try (final OutputStream os = Files.newOutputStream(path)) {
-            ImageIO.write(image, "png", os);
-            System.out.println(path.toAbsolutePath());
-        }
-    }
-
-    private static void process(final Path inputPath, final Path outputPath, @Nullable final Path leftoverPath) throws IOException {
-        for (final InputFile inputFile : INPUTS) {
-            inputFile.process(inputPath, outputPath, leftoverPath);
-        }
-    }
-
     public static void main(final String[] argv) throws IOException {
-        final int argc = argv.length;
-        if (argc != 2 && argc != 3) {
-            System.err.println("Usage: <input dir or zip> <output dir> [<leftover dir>]");
-            return;
-        }
-
-        final Path inputPath = Paths.get(argv[0]);
-
-        final Path outputPath = Paths.get(argv[1]);
-        Files.createDirectories(outputPath.getParent());
-
-        final Path leftoverPath;
-        if (argc == 3) {
-            leftoverPath = Paths.get(argv[2]);
-            Files.createDirectories(leftoverPath.getParent());
-        } else {
-            leftoverPath = null;
-        }
-
-        if (Files.isDirectory(inputPath)) {
-            process(inputPath, outputPath, leftoverPath);
-        } else if (inputPath.getFileName().toString().endsWith(".zip")) {
-            final URI fsUri = URI.create("jar:" + inputPath.toUri());
-            try (final FileSystem fs = FileSystems.newFileSystem(fsUri, Collections.emptyMap())) {
-                process(fs.getPath("/"), outputPath, leftoverPath);
-            }
-        } else {
-            throw new IllegalStateException("Expected either directory or zip file");
-        }
+        Slicer.parse(argv).process(INPUTS);
     }
 }
