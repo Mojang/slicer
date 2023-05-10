@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'application'
 }
 
 group 'com.mojang'
@@ -20,14 +19,6 @@ dependencies {
     compileOnly 'com.google.code.findbugs:jsr305:2.0.1'
 }
 
-mainClassName = "com.mojang.slicer.Main"
-
 processResources {
-   from("LICENSE")
-}
-
-jar {
-    manifest {
-        attributes 'Main-Class': mainClassName
-    }
+    from("LICENSE")
 }
