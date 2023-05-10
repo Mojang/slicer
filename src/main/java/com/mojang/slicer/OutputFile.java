@@ -26,7 +26,7 @@ public class OutputFile {
         this.box = box;
     }
 
-    public void process(final Path root, final BufferedImage image) throws IOException {
+    public void process(final Path root, final BufferedImage image, final Graphics leftover) throws IOException {
         final int width = image.getWidth();
         final int height = image.getHeight();
 
@@ -43,9 +43,8 @@ public class OutputFile {
 
         Slicer.writeImage(outputPath, subImage);
 
-        final Graphics graphics = image.getGraphics();
-        graphics.setColor(REMOVED_MARKER);
-        graphics.fillRect(x, y, w, h);
+        leftover.setColor(REMOVED_MARKER);
+        leftover.fillRect(x, y, w, h);
     }
 
     public OutputFile apply(final UnaryOperator<BufferedImage> transform) {

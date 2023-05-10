@@ -6,6 +6,7 @@ package com.mojang.slicer;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.imageio.ImageIO;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,13 +35,19 @@ public class InputFile {
         if (Files.exists(inputPath)) {
             try (final InputStream is = Files.newInputStream(inputPath)) {
                 final BufferedImage image = ImageIO.read(is);
+                final BufferedImage leftoverImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                final Graphics2D leftoverGraphics = leftoverImage.createGraphics();
+                leftoverGraphics.drawImage(image, 0, 0, null);
+
                 for (final OutputFile outputFile : outputs) {
-                    outputFile.process(outputRoot, image);
+                    outputFile.process(outputRoot, image, leftoverGraphics);
                 }
+
+                leftoverGraphics.dispose();
 
                 if (leftoverRoot != null) {
                     final Path leftoverPath = leftoverRoot.resolve(this.path);
-                    Slicer.writeImage(leftoverPath, image);
+                    Slicer.writeImage(leftoverPath, leftoverImage);
                 }
             }
         } else {
