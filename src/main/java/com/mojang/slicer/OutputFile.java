@@ -3,6 +3,7 @@
 
 package com.mojang.slicer;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -22,6 +23,8 @@ public class OutputFile {
     private final String path;
     private final Box box;
     private final List<UnaryOperator<BufferedImage>> transformers = new ArrayList<>();
+    @Nullable
+    private String metadata;
 
     public OutputFile(final String path, final Box box) {
         this.path = path;
@@ -48,6 +51,8 @@ public class OutputFile {
         final Path inputMetaPath = getMetaPath(imagePath);
         if (Files.exists(inputMetaPath)) {
             Files.copy(inputMetaPath, getMetaPath(outputPath), StandardCopyOption.REPLACE_EXISTING);
+        } else if (metadata != null) {
+            Files.writeString(getMetaPath(outputPath), metadata);
         }
 
         leftover.setColor(REMOVED_MARKER);
@@ -60,6 +65,11 @@ public class OutputFile {
 
     public OutputFile apply(final UnaryOperator<BufferedImage> transform) {
         transformers.add(transform);
+        return this;
+    }
+
+    public OutputFile metadata(final String metadata) {
+        this.metadata = metadata;
         return this;
     }
 }
