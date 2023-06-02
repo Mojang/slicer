@@ -40,7 +40,7 @@ public class InputFile {
                 leftoverGraphics.drawImage(image, 0, 0, null);
 
                 for (final OutputFile outputFile : outputs) {
-                    outputFile.process(outputRoot, image, leftoverGraphics);
+                    outputFile.process(outputRoot, inputPath, image, leftoverGraphics);
                 }
 
                 leftoverGraphics.dispose();
