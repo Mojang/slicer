@@ -105,6 +105,20 @@ public class Main {
         };
     }
 
+    private static UnaryOperator<BufferedImage> spriteExtender(final int srcWidth, final int srcHeight, final int targetX, final int targetY, final int targetWidth, final int targetHeight) {
+        return image -> {
+            final int imageWidth = image.getWidth();
+            final int imageHeight = image.getHeight();
+            final int x = targetX * imageWidth / srcWidth;
+            final int y = targetY * imageHeight / srcHeight;
+            final int width = targetWidth * imageWidth / srcWidth;
+            final int height = targetHeight * imageHeight / srcHeight;
+            final BufferedImage extendedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            extendedImage.getGraphics().drawImage(image, x, y, null);
+            return extendedImage;
+        };
+    }
+
     private static final List<InputFile> INPUTS = List.of(
         input("assets/minecraft/textures/gui/chat_tags.png",
             new OutputFile("assets/minecraft/textures/gui/sprites/icon/chat_modified.png", new Box(0, 0, 9, 9, 32, 32))
@@ -664,7 +678,8 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/scroller_disabled.png", new Box(244, 0, 12, 15, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/pattern_selected.png", new Box(0, 180, 14, 14, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/pattern_highlighted.png", new Box(0, 194, 14, 14, 256, 256)),
-            new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/pattern.png", new Box(0, 166, 14, 14, 256, 256))
+            new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/pattern.png", new Box(0, 166, 14, 14, 256, 256)),
+            new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/error.png", new Box(176, 17, 17, 16, 256, 256)).apply(spriteExtender(17, 16, 3, 4, 26, 26))
         ),
         input("assets/realms/textures/gui/realms/invite_icon.png",
             new OutputFile("assets/minecraft/textures/gui/sprites/icon/invite.png", new Box(0, 0, 18, 15, 18, 30)),
