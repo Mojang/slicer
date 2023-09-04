@@ -31,24 +31,15 @@ public class Slicer {
         this.leftoverPath = leftoverPath;
     }
 
-    public static Slicer parse(final String[] argv) throws IOException {
+    public static Slicer parse(final String[] argv) {
         final int argc = argv.length;
         if (argc != 2 && argc != 3) {
             throw new IllegalArgumentException("Usage: <input dir or zip> <output dir> [<leftover dir>]");
         }
 
         final Path inputPath = Paths.get(argv[0]);
-
         final Path outputPath = Paths.get(argv[1]);
-        Files.createDirectories(outputPath.getParent());
-
-        final Path leftoverPath;
-        if (argc == 3) {
-            leftoverPath = Paths.get(argv[2]);
-            Files.createDirectories(leftoverPath.getParent());
-        } else {
-            leftoverPath = null;
-        }
+        final Path leftoverPath = argc == 3 ? Paths.get(argv[2]) : null;
 
         return new Slicer(inputPath, outputPath, leftoverPath);
     }
