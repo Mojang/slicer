@@ -40,13 +40,18 @@ public class OutputFile {
         final int y = box.scaleY(height);
         final int w = box.scaleW(width);
         final int h = box.scaleH(height);
-        BufferedImage subImage = image.getSubimage(x, y, w, h);
 
-        for (final UnaryOperator<BufferedImage> op : transformers) {
-            subImage = op.apply(subImage);
+        Files.createDirectories(outputPath.getParent());
+
+        if (x == 0 && y == 0 && w == width && h == height && transformers.isEmpty()) {
+            Files.copy(imagePath, outputPath, StandardCopyOption.REPLACE_EXISTING);
+        } else {
+            BufferedImage subImage = image.getSubimage(x, y, w, h);
+            for (final UnaryOperator<BufferedImage> op : transformers) {
+                subImage = op.apply(subImage);
+            }
+            Slicer.writeImage(outputPath, subImage);
         }
-
-        Slicer.writeImage(outputPath, subImage);
 
         final Path inputMetaPath = getMetaPath(imagePath);
         if (Files.exists(inputMetaPath)) {
