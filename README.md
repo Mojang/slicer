@@ -1,4 +1,4 @@
-# slicer
+# Slicer
 Resource pack migration tool for Minecraft: Java Edition.
 Two versions of the tool are available for migrations to both 1.14 and 1.20.2 pack formats. 
 The migrations automated here are not exhaustive, so some manual work may still be required. See the release changelog for the relevant version for more information.
