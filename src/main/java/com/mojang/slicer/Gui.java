@@ -95,6 +95,7 @@ public class Gui {
                 System.out.println("clicked");
                 try {
                     new Slicer(Path.of(inputFolder), Path.of(outputFolder), Path.of(leftoverFolder)).process(INPUTS);
+                    JOptionPane.showMessageDialog(frame, "Slicing finished");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
