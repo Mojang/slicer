@@ -13,3 +13,11 @@ Pre-built jars are available through the [Releases](https://github.com/satanican
 - select output `dir`
 - select leftover `dir` is optional location that will be filled with copies of source images with added highlights for areas that were migrated
 The highlighted areas were processed by the tool and are used by the Vanilla game, the rest is not required in the pack
+
+or
+
+`<input dir or zip> <output dir> [<leftover dir>]`	- Open the `.jar` file
+- `input dir or zip` is the root of your resource pack (directory or zip containing an `assets` directory)	- Select input `dir or zip`
+- `output dir` will be filled with all processed texture files	- select output `dir`
+- `leftover dir` is optional location that will be filled with copies of source images with added highlights for areas that were migrated	- select leftover `dir` is optional location that will be filled with copies of source images with added highlights for areas that were migrated
+  - The highlighted areas were processed by the tool and are used by the Vanilla game, the rest is not required in the pack
