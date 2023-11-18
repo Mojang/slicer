@@ -264,6 +264,6 @@ public class Main {
     );
 
     public static void main(final String[] argv) throws IOException {
-        Slicer.parse(argv).process(INPUTS);
+        new Gui("1.14", INPUTS);
     }
 }

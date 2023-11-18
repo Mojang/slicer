@@ -4,7 +4,7 @@
 package com.mojang.slicer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -785,6 +785,6 @@ public class Main {
     );
 
     public static void main(final String[] argv) throws IOException {
-        Slicer.parse(argv).process(INPUTS);
+        new Gui("1.20.2", INPUTS);
     }
 }
