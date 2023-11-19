@@ -790,7 +790,8 @@ public class Main {
         if (console != null) {
             Slicer.parse(argv).process(INPUTS);
         } else {
-            new Gui("1.20.2", INPUTS);
+            //new Gui("1.20.2", INPUTS);
+            new AppGui("1.20.2", INPUTS);
         }
     }
 }
