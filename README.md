@@ -21,3 +21,6 @@ or
 - `output dir` will be filled with all processed texture files	- select output `dir`
 - `leftover dir` is optional location that will be filled with copies of source images with added highlights for areas that were migrated	- select leftover `dir` is optional location that will be filled with copies of source images with added highlights for areas that were migrated
   - The highlighted areas were processed by the tool and are used by the Vanilla game, the rest is not required in the pack
+ ---
+![image](https://github.com/satanicantichrist/slicer-gui/assets/72868272/b14abfb1-da29-44fb-97d6-2cf6208d2823)
+
