@@ -1,5 +1,7 @@
 package com.mojang.slicer;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -23,14 +25,14 @@ public class AppGui extends JPanel {
     private String leftoverFolder;
 
     public AppGui(String minecraftVersion, List<InputFile> INPUTS) {
-
+        FlatLightLaf.setup();
 
         //construct components
         JFrame frame = new JFrame("Minecraft Slicer - " + minecraftVersion);
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         inputButton = new JButton("...");
-        leftoverButton = new JButton("Button 3...");
+        leftoverButton = new JButton("...");
         inputField = new JTextField(5);
         outputButton = new JButton("...");
         runButton = new JButton("Run");
@@ -103,7 +105,10 @@ public class AppGui extends JPanel {
             outputFolder = outputField.getText();
             leftoverFolder = leftoverField.getText();
             try {
-                new Slicer(Path.of(inputFolder), Path.of(outputFolder), Path.of(leftoverFolder)).process(INPUTS);
+                if (leftoverFolder.strip().equals("")) {
+                    new Slicer(Path.of(inputFolder), Path.of(outputFolder), null).process(INPUTS);
+                } else
+                    new Slicer(Path.of(inputFolder), Path.of(outputFolder), Path.of(leftoverFolder)).process(INPUTS);
                 JOptionPane.showMessageDialog(frame, "Slicing finished");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

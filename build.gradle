@@ -17,6 +17,10 @@ repositories {
 
 dependencies {
     compileOnly 'com.google.code.findbugs:jsr305:2.0.1'
+
+    implementation("com.formdev:flatlaf:3.2.5")
+    implementation("com.formdev:flatlaf:3.2.5:linux-x86_64@so")
+    implementation("com.formdev:flatlaf:3.2.5:windows-x86_64@dll")
 }
 
 processResources {
