@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'com.mojang'
+version '1.1.4-SNAPSHOT'
+
+mainClassName = "com.mojang.slicer.Main"
+archivesBaseName = distributions.main.distributionBaseName = "slicer-1.20.5"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation rootProject
+    compileOnly 'com.google.code.findbugs:jsr305:2.0.1'
+}
+
+jar {
+    from rootProject.sourceSets.main.output
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
