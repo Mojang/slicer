@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-package slicer;
+package com.mojang.slicer;
 
 import com.mojang.slicer.Box;
 import com.mojang.slicer.InputFile;
