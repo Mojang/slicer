@@ -6,7 +6,6 @@ package com.mojang.slicer;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.UnaryOperator;
@@ -786,12 +785,8 @@ public class Main {
     );
 
     public static void main(final String[] argv) throws IOException {
-        Console console = System.console();
-        if (console != null) {
+        if (argv.length > 0)
             Slicer.parse(argv).process(INPUTS);
-        } else {
-            //new Gui("1.20.2", INPUTS);
-            new AppGui("1.20.2", INPUTS);
-        }
+        else new AppGui("1.20.2", INPUTS);
     }
 }
