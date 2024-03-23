@@ -1,12 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-package slicer;
-
-import com.mojang.slicer.Box;
-import com.mojang.slicer.InputFile;
-import com.mojang.slicer.OutputFile;
-import com.mojang.slicer.Slicer;
+package com.mojang.slicer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
@@ -67,6 +62,8 @@ public class Main {
     );
 
     public static void main(final String[] argv) throws IOException {
-        Slicer.parse(argv).process(INPUTS);
+        if (argv.length > 0)
+            Slicer.parse(argv).process(INPUTS);
+        else new AppGui("1.20.5", INPUTS);
     }
 }
