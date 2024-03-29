@@ -61,6 +61,19 @@ public class Main {
         return clip(name, name, box);
     }
 
+    private static BufferedImage clip(BufferedImage image) {
+        final int imageWidth = image.getWidth();
+        final int imageHeight = image.getHeight();
+        final int x = STANDARD_CONTAINER_BOX.scaleX(imageWidth);
+        final int y = STANDARD_CONTAINER_BOX.scaleY(imageHeight);
+        final int width = STANDARD_CONTAINER_BOX.scaleW(imageWidth);
+        final int height = STANDARD_CONTAINER_BOX.scaleH(imageHeight);
+        final BufferedImage subImage = image.getSubimage(x, y, width, height);
+        final BufferedImage clippedImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+        clippedImage.getGraphics().drawImage(subImage, x, y, null);
+        return clippedImage;
+    }
+
     private static InputFile clip(final String inputName, final String outputName, final Box box) {
         final String inputPath = nameToPath("minecraft", inputName);
         final String outputPath = nameToPath("minecraft", outputName);
@@ -188,6 +201,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/widget/checkbox.png", new Box(0, 0, 20, 20, 64, 64))
         ),
         input("assets/minecraft/textures/gui/container/blast_furnace.png",
+                new OutputFile("assets/minecraft/textures/gui/container/blast_furnace.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/blast_furnace/lit_progress.png", new Box(176, 0, 14, 14, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/blast_furnace/burn_progress.png", new Box(176, 14, 24, 16, 256, 256))
         ),
@@ -254,10 +268,12 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/widget/tab_highlighted.png", new Box(0, 72, 130, 24, 256, 256)).metadata(TAB_WIDGET_METADATA)
         ),
         input("assets/minecraft/textures/gui/container/furnace.png",
+                new OutputFile("assets/minecraft/textures/gui/container/furnace.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/furnace/lit_progress.png", new Box(176, 0, 14, 14, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/furnace/burn_progress.png", new Box(176, 14, 24, 16, 256, 256))
         ),
         input("assets/minecraft/textures/gui/container/brewing_stand.png",
+                new OutputFile("assets/minecraft/textures/gui/container/brewing_stand.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/brewing_stand/fuel_length.png", new Box(176, 29, 18, 4, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/brewing_stand/brew_progress.png", new Box(176, 0, 9, 28, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/brewing_stand/bubbles.png", new Box(185, 0, 12, 29, 256, 256))
@@ -283,6 +299,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/player_list/make_operator_highlighted.png", new Box(0, 7, 8, 7, 8, 14))
         ),
         input("assets/minecraft/textures/gui/container/beacon.png",
+                new OutputFile("assets/minecraft/textures/gui/container/beacon.png", new Box(0, 0, 230, 219, 256, 256)).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/beacon/button_disabled.png", new Box(44, 219, 22, 22, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/beacon/button_selected.png", new Box(22, 219, 22, 22, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/beacon/button_highlighted.png", new Box(66, 219, 22, 22, 256, 256)),
@@ -322,6 +339,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/pending_invite/reject.png", new Box(0, 0, 18, 18, 37, 18))
         ),
         input("assets/minecraft/textures/gui/book.png",
+                new OutputFile("assets/minecraft/textures/gui/book.png", new Box(20, 1, 146, 180, 256, 256)).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/widget/page_forward_highlighted.png", new Box(23, 192, 23, 13, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/widget/page_forward.png", new Box(0, 192, 23, 13, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/widget/page_backward_highlighted.png", new Box(23, 205, 23, 13, 256, 256)),
@@ -364,6 +382,7 @@ public class Main {
                 """)
         ),
         input("assets/minecraft/textures/gui/container/grindstone.png",
+                new OutputFile("assets/minecraft/textures/gui/container/grindstone.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/grindstone/error.png", new Box(176, 0, 28, 21, 256, 256))
         ),
         input("assets/realms/textures/gui/realms/restore_icon.png",
@@ -371,6 +390,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/backup/restore_highlighted.png", new Box(0, 10, 17, 10, 17, 20))
         ),
         input("assets/minecraft/textures/gui/container/villager2.png",
+                new OutputFile("assets/minecraft/textures/gui/container/villager.png", new Box(0, 0, 276, 166, 512, 256)).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/villager/out_of_stock.png", new Box(311, 0, 28, 21, 512, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/villager/experience_bar_background.png", new Box(0, 186, 102, 5, 512, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/villager/experience_bar_current.png", new Box(0, 191, 102, 5, 512, 256)),
@@ -417,9 +437,11 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/boss_bar/notched_20_progress.png", new Box(0, 115, 182, 5, 256, 256))
         ),
         input("assets/minecraft/textures/gui/container/smithing.png",
+                new OutputFile("assets/minecraft/textures/gui/container/smithing.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/smithing/error.png", new Box(176, 0, 28, 21, 256, 256))
         ),
         input("assets/minecraft/textures/gui/container/stonecutter.png",
+                new OutputFile("assets/minecraft/textures/gui/container/stonecutter.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/stonecutter/scroller.png", new Box(176, 0, 12, 15, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/stonecutter/scroller_disabled.png", new Box(188, 0, 12, 15, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/stonecutter/recipe_selected.png", new Box(0, 184, 16, 18, 256, 256)),
@@ -433,6 +455,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/widget/slider_handle.png", new Box(0, 40, 200, 20, 256, 256)).metadata(BUTTON_WIDGET_METADATA)
         ),
         input("assets/minecraft/textures/gui/container/gamemode_switcher.png",
+                new OutputFile("assets/minecraft/textures/gui/container/gamemode_switcher.png", new Box(0, 0, 125, 75, 128, 128)).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/gamemode_switcher/slot.png", new Box(0, 75, 26, 26, 128, 128)),
             new OutputFile("assets/minecraft/textures/gui/sprites/gamemode_switcher/selection.png", new Box(26, 75, 26, 26, 128, 128))
         ),
@@ -455,6 +478,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/backup/changes_highlighted.png", new Box(0, 9, 9, 9, 9, 18))
         ),
         input("assets/minecraft/textures/gui/container/enchanting_table.png",
+                new OutputFile("assets/minecraft/textures/gui/container/enchanting_table.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/enchanting_table/level_1.png", new Box(0, 223, 16, 16, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/enchanting_table/level_2.png", new Box(16, 223, 16, 16, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/enchanting_table/level_3.png", new Box(32, 223, 16, 16, 256, 256)),
@@ -473,6 +497,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/container/bundle/slot.png", new Box(0, 0, 18, 20, 128, 128))
         ),
         input("assets/minecraft/textures/gui/container/horse.png",
+                new OutputFile("assets/minecraft/textures/gui/container/horse.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/horse/chest_slots.png", new Box(0, 166, 90, 54, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/horse/saddle_slot.png", new Box(18, 220, 18, 18, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/horse/llama_armor_slot.png", new Box(36, 220, 18, 18, 256, 256)),
@@ -482,6 +507,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/realm_status/open.png", new Box(0, 0, 10, 28, 10, 28))
         ),
         input("assets/minecraft/textures/gui/container/anvil.png",
+                new OutputFile("assets/minecraft/textures/gui/container/anvil.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/anvil/text_field.png", new Box(0, 166, 110, 16, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/anvil/text_field_disabled.png", new Box(0, 182, 110, 16, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/anvil/error.png", new Box(176, 0, 28, 21, 256, 256))
@@ -499,6 +525,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/notification/more.png", new Box(40, 0, 8, 8, 48, 16))
         ),
         input("assets/minecraft/textures/gui/recipe_book.png",
+                new OutputFile("assets/minecraft/textures/gui/recipe_book.png", new Box(0, 0, 149, 168, 256, 256)).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/recipe_book/furnace_filter_enabled.png", new Box(180, 182, 26, 16, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/recipe_book/furnace_filter_disabled.png", new Box(152, 182, 26, 16, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/recipe_book/furnace_filter_enabled_highlighted.png", new Box(180, 200, 26, 16, 256, 256)),
@@ -565,6 +592,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/spectator/scroll_right.png", new Box(160, 0, 16, 16, 256, 256))
         ),
         input("assets/minecraft/textures/gui/container/smoker.png",
+                new OutputFile("assets/minecraft/textures/gui/container/smoker.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/smoker/lit_progress.png", new Box(176, 0, 14, 14, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/smoker/burn_progress.png", new Box(176, 14, 24, 16, 256, 256))
         ),
@@ -662,6 +690,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/server_list/pinging_5.png", new Box(10, 208, 10, 8, 256, 256))
         ),
         input("assets/minecraft/textures/gui/container/inventory.png",
+                new OutputFile("assets/minecraft/textures/gui/container/inventory.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/hud/effect_background_ambient.png", new Box(165, 166, 24, 24, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/hud/effect_background.png", new Box(141, 166, 24, 24, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/inventory/effect_background_large.png", new Box(0, 166, 120, 32, 256, 256)),
@@ -671,6 +700,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/icon/unseen_notification.png", new Box(0, 0, 10, 10, 10, 10))
         ),
         input("assets/minecraft/textures/gui/container/loom.png",
+                new OutputFile("assets/minecraft/textures/gui/container/loom.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/banner_slot.png", new Box(176, 0, 16, 16, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/dye_slot.png", new Box(192, 0, 16, 16, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/loom/pattern_slot.png", new Box(208, 0, 16, 16, 256, 256)),
@@ -686,6 +716,7 @@ public class Main {
             new OutputFile("assets/minecraft/textures/gui/sprites/icon/invite_highlighted.png", new Box(0, 15, 18, 15, 18, 30))
         ),
         input("assets/minecraft/textures/gui/container/cartography_table.png",
+                new OutputFile("assets/minecraft/textures/gui/container/cartography_table.png", STANDARD_CONTAINER_BOX).apply(Main::clip),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/cartography_table/error.png", new Box(226, 132, 28, 21, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/cartography_table/scaled_map.png", new Box(176, 66, 66, 66, 256, 256)),
             new OutputFile("assets/minecraft/textures/gui/sprites/container/cartography_table/duplicated_map.png", new Box(176, 132, 50, 66, 256, 256)),
@@ -731,28 +762,11 @@ public class Main {
         copy("container/creative_inventory/tab_inventory"),
         copy("container/creative_inventory/tab_item_search"),
         copy("container/creative_inventory/tab_items"),
-        clip("container/anvil", STANDARD_CONTAINER_BOX),
-        clip("container/beacon", new Box(0, 0, 230, 219, 256, 256)),
-        clip("container/blast_furnace", STANDARD_CONTAINER_BOX),
-        clip("container/brewing_stand", STANDARD_CONTAINER_BOX),
-        clip("container/cartography_table", STANDARD_CONTAINER_BOX),
         clip("container/crafting_table", STANDARD_CONTAINER_BOX),
         clip("container/dispenser", STANDARD_CONTAINER_BOX),
-        clip("container/enchanting_table", STANDARD_CONTAINER_BOX),
-        clip("container/furnace", STANDARD_CONTAINER_BOX),
-        clip("container/gamemode_switcher", new Box(0, 0, 125, 75, 128, 128)),
         copy("container/generic_54"),
-        clip("container/grindstone", STANDARD_CONTAINER_BOX),
         clip("container/hopper", new Box(0, 0, 176, 133, 256, 256)),
-        clip("container/horse", STANDARD_CONTAINER_BOX),
-        clip("container/inventory", STANDARD_CONTAINER_BOX),
-        clip("container/loom", STANDARD_CONTAINER_BOX),
-        clip("container/shulker_box", STANDARD_CONTAINER_BOX),
-        clip("container/smithing", STANDARD_CONTAINER_BOX),
-        clip("container/smoker", STANDARD_CONTAINER_BOX),
-        clip("container/stonecutter", STANDARD_CONTAINER_BOX),
-        clip("container/villager2", "container/villager", new Box(0, 0, 276, 166, 512, 256)),
-        copy("hanging_signs/acacia"),
+            clip("container/shulker_box", STANDARD_CONTAINER_BOX), copy("hanging_signs/acacia"),
         copy("hanging_signs/bamboo"),
         copy("hanging_signs/birch"),
         copy("hanging_signs/cherry"),
@@ -775,13 +789,11 @@ public class Main {
         copy("title/minceraft"),
         copy("title/minecraft"),
         copy("title/mojangstudios"),
-        clip("book", new Box(20, 1, 146, 180, 256, 256)),
         copy("demo_background"),
         copy("footer_separator"),
         copy("header_separator"),
         copy("light_dirt_background"),
-        copy("options_background"),
-        clip("recipe_book", new Box(0, 0, 149, 168, 256, 256))
+            copy("options_background")
     );
 
     public static void main(final String[] argv) throws IOException {
