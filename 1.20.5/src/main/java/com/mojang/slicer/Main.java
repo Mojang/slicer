@@ -45,6 +45,10 @@ public class Main {
         return new InputFile(path).outputs(outputs);
     }
 
+    private static InputFile move(final String inputPath, final String outputPath) {
+        return new InputFile(inputPath).outputs(new OutputFile(outputPath, new Box(0, 0, 1, 1, 1, 1)));
+    }
+
     private static final List<InputFile> INPUTS = List.of(
         input("assets/minecraft/textures/map/map_icons.png",
             mapDecoration("player", 0),
