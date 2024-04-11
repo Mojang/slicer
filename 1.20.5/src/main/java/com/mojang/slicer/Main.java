@@ -85,29 +85,29 @@ public class Main {
     ),
     private static final List<InputFile> INPUTS = List.of(
         input("assets/minecraft/textures/entity/experience_orb.png",
-            mapDecoration("smallest", 0),
-            mapDecoration("value_3", 1),
-            mapDecoration("value_7", 2),
-            mapDecoration("value_17", 3),
-            mapDecoration("value_37", 4),
-            mapDecoration("value_73", 5),
-            mapDecoration("value_149", 6),
-            mapDecoration("value_307", 7),
-            mapDecoration("value_617", 8),
-            mapDecoration("value_1237", 9),
-            mapDecoration("value_2477", 10)
+            experienceOrb("smallest", 0),
+            experienceOrb("value_3", 1),
+            experienceOrb("value_7", 2),
+            experienceOrb("value_17", 3),
+            experienceOrb("value_37", 4),
+            experienceOrb("value_73", 5),
+            experienceOrb("value_149", 6),
+            experienceOrb("value_307", 7),
+            experienceOrb("value_617", 8),
+            experienceOrb("value_1237", 9),
+            experienceOrb("value_2477", 10)
         )
     ),
     private static final List<InputFile> INPUTS = List.of(
         input("assets/minecraft/textures/environment/moon_phases.png",
-            mapDecoration("moon_full", 0),
-            mapDecoration("moon_waning_gibbous", 1),
-            mapDecoration("moon_last_quarter", 2),
-            mapDecoration("moon_waning_crescent", 3),
-            mapDecoration("moon_new", 4),
-            mapDecoration("moon_waxing_crescent", 5),
-            mapDecoration("moon_first_quarter", 6),
-            mapDecoration("moon_waxing_gibbous", 7)
+            moonPhase("moon_full", 0),
+            moonPhase("moon_waning_gibbous", 1),
+            moonPhase("moon_last_quarter", 2),
+            moonPhase("moon_waning_crescent", 3),
+            moonPhase("moon_new", 4),
+            moonPhase("moon_waxing_crescent", 5),
+            moonPhase("moon_first_quarter", 6),
+            moonPhase("moon_waxing_gibbous", 7)
         )
     );
 
