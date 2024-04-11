@@ -37,7 +37,7 @@ public class Main {
         final int y = index / 2;
         return new OutputFile(
             "assets/minecraft/textures/celestial_body/" + path + ".png",
-            new Box(x * 32, y * 32, 32, 32, 128, 64)
+            new Box(x * 32, y * 32, 32, 32, 64, 128)
         );
     }
 
