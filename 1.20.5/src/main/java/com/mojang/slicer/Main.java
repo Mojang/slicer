@@ -23,6 +23,24 @@ public class Main {
         );
     }
 
+    private static OutputFile experienceOrb(final String path, final int index) {
+        final int x = index % 4;
+        final int y = index / 4;
+        return new OutputFile(
+            "assets/minecraft/textures/experience_orb/" + path + ".png",
+            new Box(x * 16, y * 16, 16, 16, 64, 64)
+        );
+    }
+
+    private static OutputFile moonPhase(final String path, final int index) {
+        final int x = index % 4;
+        final int y = index / 2;
+        return new OutputFile(
+            "assets/minecraft/textures/celestial_body/" + path + ".png",
+            new Box(x * 32, y * 32, 32, 32, 128, 64)
+        );
+    }
+
     private static InputFile input(final String path, final OutputFile... outputs) {
         return new InputFile(path).outputs(outputs);
     }
@@ -63,6 +81,33 @@ public class Main {
             mapDecoration("taiga_village", 31),
             mapDecoration("jungle_temple", 32),
             mapDecoration("swamp_hut", 33)
+        )
+    ),
+    private static final List<InputFile> INPUTS = List.of(
+        input("assets/minecraft/textures/entity/experience_orb.png",
+            mapDecoration("smallest", 0),
+            mapDecoration("value_3", 1),
+            mapDecoration("value_7", 2),
+            mapDecoration("value_17", 3),
+            mapDecoration("value_37", 4),
+            mapDecoration("value_73", 5),
+            mapDecoration("value_149", 6),
+            mapDecoration("value_307", 7),
+            mapDecoration("value_617", 8),
+            mapDecoration("value_1237", 9),
+            mapDecoration("value_2477", 10)
+        )
+    ),
+    private static final List<InputFile> INPUTS = List.of(
+        input("assets/minecraft/textures/environment/moon_phases.png",
+            mapDecoration("moon_full", 0),
+            mapDecoration("moon_waning_gibbous", 1),
+            mapDecoration("moon_last_quarter", 2),
+            mapDecoration("moon_waning_crescent", 3),
+            mapDecoration("moon_new", 4),
+            mapDecoration("moon_waxing_crescent", 5),
+            mapDecoration("moon_first_quarter", 6),
+            mapDecoration("moon_waxing_gibbous", 7)
         )
     );
 
