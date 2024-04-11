@@ -81,9 +81,7 @@ public class Main {
             mapDecoration("taiga_village", 31),
             mapDecoration("jungle_temple", 32),
             mapDecoration("swamp_hut", 33)
-        )
-    ),
-    private static final List<InputFile> INPUTS = List.of(
+        ),
         input("assets/minecraft/textures/entity/experience_orb.png",
             experienceOrb("smallest", 0),
             experienceOrb("value_3", 1),
@@ -96,9 +94,7 @@ public class Main {
             experienceOrb("value_617", 8),
             experienceOrb("value_1237", 9),
             experienceOrb("value_2477", 10)
-        )
-    ),
-    private static final List<InputFile> INPUTS = List.of(
+        ),
         input("assets/minecraft/textures/environment/moon_phases.png",
             moonPhase("moon_full", 0),
             moonPhase("moon_waning_gibbous", 1),
