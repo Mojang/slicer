@@ -33,7 +33,7 @@ public class Main {
     }
 
     private static OutputFile moonPhase(final String path, final int index) {
-        final int x = index % 2;
+        final int x = index % 4;
         final int y = index / 4;
         return new OutputFile(
             "assets/minecraft/textures/celestial_body/" + path + ".png",
