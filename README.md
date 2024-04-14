@@ -8,6 +8,7 @@ This tool is provided as reference code to help update existing resource packs f
 ## Usage
 Pre-built jars are available through the [Releases](https://github.com/satanicantichrist/slicer-gui/releases) page. An installation of Java 17 or higher is required.
 
+Slicer GUI
 - Open the `slicer.bat` file 
 - Select input `dir or zip` is the root of your resource pack (directory or zip containing an `assets` directory)	- Select input `dir or zip`.
 - Select output `dir` will be filled with all processed texture files.
@@ -17,6 +18,7 @@ The highlighted areas were processed by the tool and are used by the Vanilla gam
 
 or
 
+Slicer CLI
 `<input dir or zip> <output dir> [<leftover dir>]`
 - `input dir or zip` is the root of your resource pack (directory or zip containing an `assets` directory)	- Select input `dir or zip`
 - `output dir` will be filled with all processed texture files	- select output `dir`
