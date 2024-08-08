@@ -1,6 +1,7 @@
 package com.mojang.slicer.commands;
 
 import me.satanicantichrist.Command;
+import me.satanicantichrist.EasyCli;
 import me.satanicantichrist.Flag;
 
 public class BaseCommand extends Command {
@@ -16,6 +17,11 @@ public class BaseCommand extends Command {
     public void onRun() {
         if (getFlag("version").isInArgv()) {
             System.out.println("Version: " + this.VERSION);
+            return;
         }
+        if (getFlag("help").isInArgv()) {
+            System.out.println(EasyCli.getMainHelp());
+        }
+
     }
 }
