@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import static com.mojang.slicer.Slicer.skippedFiles;
+import static com.mojang.slicer.Slicer.slicedFiles;
+
 public class AppGui extends JPanel {
     private JButton inputButton;
     private JButton leftoverButton;
@@ -23,6 +26,13 @@ public class AppGui extends JPanel {
     private String inputFolder;
     private String outputFolder;
     private String leftoverFolder;
+
+    public AppGui(String minecraftVersion, List<InputFile> INPUTS, String sourcePath, String outputPath, String leftoverPath) {
+        this.inputFolder = sourcePath;
+        this.outputFolder = outputPath;
+        this.leftoverFolder = leftoverPath;
+        new AppGui(minecraftVersion, INPUTS);
+    }
 
     public AppGui(String minecraftVersion, List<InputFile> INPUTS) {
         FlatLightLaf.setup();
@@ -66,10 +76,13 @@ public class AppGui extends JPanel {
         runButton.setBounds(235, 145, 100, 25);
         outputField.setBounds(170, 40, 330, 25);
         leftoverField.setBounds(170, 70, 330, 25);
-        jcomp8.setBounds(20, 10, 150, 25);
+        jcomp8.setBounds(27, 10, 150, 25);
         jcomp9.setBounds(70, 40, 100, 25);
-        jcomp10.setBounds(55, 70, 115, 25);
+        jcomp10.setBounds(64, 70, 115, 25);
 
+        inputField.setText(inputFolder);
+        outputField.setText(outputFolder);
+        leftoverField.setText(leftoverFolder);
 
         inputButton.addActionListener(e -> {
             int returnVal = fileChooser.showOpenDialog(frame);
@@ -109,7 +122,15 @@ public class AppGui extends JPanel {
                     new Slicer(Path.of(inputFolder), Path.of(outputFolder), null).process(INPUTS);
                 } else
                     new Slicer(Path.of(inputFolder), Path.of(outputFolder), Path.of(leftoverFolder)).process(INPUTS);
-                JOptionPane.showMessageDialog(frame, "Slicing finished");
+                if (slicedFiles == 0) {
+                    JOptionPane.showMessageDialog(frame, "Skipped all files. \n" +
+                            "This can be caused by an empty resource pack or it is already up to date");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Slicing finished. \n" +
+                            "Created " + slicedFiles + " new files \n" +
+                            "Skipped " + skippedFiles + " files");
+                }
+
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

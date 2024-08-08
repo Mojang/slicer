@@ -3,8 +3,11 @@
 
 package com.mojang.slicer;
 
+import com.mojang.slicer.commands.BaseCommand;
+import com.mojang.slicer.commands.Slice;
+import me.satanicantichrist.EasyCli;
+
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.io.IOException;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
@@ -61,9 +64,9 @@ public class Main {
         )
     );
 
-    public static void main(final String[] argv) throws IOException {
-        if (argv.length > 0)
-            Slicer.parse(argv).process(INPUTS);
-        else new AppGui("1.20.5", INPUTS);
+    public static void main(final String[] argv) {
+        EasyCli.addCommand(new Slice("1.20.5", INPUTS));
+        EasyCli.setBaseCommand(new BaseCommand("1.3.0 for Minecraft 1.20.5"));
+        EasyCli.run(argv);
     }
 }

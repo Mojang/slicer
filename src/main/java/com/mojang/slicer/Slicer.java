@@ -3,6 +3,7 @@
 
 package com.mojang.slicer;
 
+
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.imageio.ImageIO;
@@ -10,11 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -24,6 +21,8 @@ public class Slicer {
     private final Path outputPath;
     @Nullable
     private final Path leftoverPath;
+    public static int skippedFiles = 0;
+    public static int slicedFiles = 0;
 
     public Slicer(final Path inputPath, final Path outputPath, @Nullable final Path leftoverPath) {
         this.inputPath = inputPath;
@@ -49,7 +48,8 @@ public class Slicer {
         Files.deleteIfExists(path);
         try (final OutputStream os = Files.newOutputStream(path)) {
             ImageIO.write(image, "png", os);
-            System.out.println(path.toAbsolutePath());
+            System.out.println("Created: " + path.toAbsolutePath());
+            slicedFiles++;
         }
     }
 
@@ -70,5 +70,14 @@ public class Slicer {
         for (final InputFile input : inputs) {
             input.process(inputPath, outputPath, leftoverPath);
         }
+        System.out.println();
+        if (slicedFiles == 0) {
+            System.out.println("Skipped all files.");
+            System.out.println("This can be caused by an empty resource pack or it is already up to date");
+        } else {
+            System.out.println("Created " + slicedFiles + " new files");
+            System.out.println("Skipped " + skippedFiles + " files");
+        }
+
     }
 }

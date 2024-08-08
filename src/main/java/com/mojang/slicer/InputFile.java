@@ -6,7 +6,7 @@ package com.mojang.slicer;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,7 +51,8 @@ public class InputFile {
                 }
             }
         } else {
-            System.err.println("Input file " + inputPath.toAbsolutePath() + " not found, skipping!");
+            System.err.println("Input file: \"" + inputPath.toAbsolutePath() + "\" not found, skipping!");
+            Slicer.skippedFiles++;
         }
     }
 }

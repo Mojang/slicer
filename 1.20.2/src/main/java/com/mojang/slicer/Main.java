@@ -3,10 +3,13 @@
 
 package com.mojang.slicer;
 
+import com.mojang.slicer.commands.BaseCommand;
+import com.mojang.slicer.commands.Slice;
+import me.satanicantichrist.EasyCli;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
@@ -766,7 +769,8 @@ public class Main {
         clip("container/dispenser", STANDARD_CONTAINER_BOX),
         copy("container/generic_54"),
         clip("container/hopper", new Box(0, 0, 176, 133, 256, 256)),
-            clip("container/shulker_box", STANDARD_CONTAINER_BOX), copy("hanging_signs/acacia"),
+            clip("container/shulker_box", STANDARD_CONTAINER_BOX),
+            copy("hanging_signs/acacia"),
         copy("hanging_signs/bamboo"),
         copy("hanging_signs/birch"),
         copy("hanging_signs/cherry"),
@@ -796,9 +800,9 @@ public class Main {
             copy("options_background")
     );
 
-    public static void main(final String[] argv) throws IOException {
-        if (argv.length > 0)
-            Slicer.parse(argv).process(INPUTS);
-        else new AppGui("1.20.2", INPUTS);
+    public static void main(final String[] argv) {
+        EasyCli.addCommand(new Slice("1.20.2", INPUTS));
+        EasyCli.setBaseCommand(new BaseCommand("1.3.0 for Minecraft 1.20.2"));
+        EasyCli.run(argv);
     }
 }
