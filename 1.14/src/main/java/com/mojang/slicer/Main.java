@@ -268,7 +268,7 @@ public class Main {
 
     public static void main(final String[] argv) {
         EasyCli.addCommand(new Slice("1.14", INPUTS));
-        EasyCli.setBaseCommand(new BaseCommand("1.2.0 for Minecraft 1.14"));
+        EasyCli.setBaseCommand(new BaseCommand("1.3.0 for Minecraft 1.14"));
         EasyCli.run(argv);
     }
 }

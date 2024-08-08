@@ -802,7 +802,7 @@ public class Main {
 
     public static void main(final String[] argv) {
         EasyCli.addCommand(new Slice("1.20.2", INPUTS));
-        EasyCli.setBaseCommand(new BaseCommand("1.2.0 for Minecraft 1.20.2"));
+        EasyCli.setBaseCommand(new BaseCommand("1.3.0 for Minecraft 1.20.2"));
         EasyCli.run(argv);
     }
 }
