@@ -763,7 +763,6 @@ public class Main {
         copy("hanging_signs/oak"),
         copy("hanging_signs/spruce"),
         copy("hanging_signs/warped"),
-        copy("presets/isles"),
         copy("title/background/panorama_0"),
         copy("title/background/panorama_1"),
         copy("title/background/panorama_2"),
