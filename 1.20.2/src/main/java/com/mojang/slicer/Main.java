@@ -68,8 +68,7 @@ public class Main {
     private static InputFile clip(final String inputName, final String outputName, final Box box) {
         final String inputPath = nameToPath("minecraft", inputName);
         final String outputPath = nameToPath("minecraft", outputName);
-        final Box imageBox = new Box(0, 0, box.totalW(), box.totalH(), box.totalW(), box.totalH());
-        return new InputFile(inputPath).outputs(new SimpleOutputFile(outputPath, imageBox).apply(image -> {
+        return new InputFile(inputPath).outputs(new SimpleOutputFile(outputPath, box).apply(image -> {
             final int imageWidth = image.getWidth();
             final int imageHeight = image.getHeight();
             final int x = box.scaleX(imageWidth);
