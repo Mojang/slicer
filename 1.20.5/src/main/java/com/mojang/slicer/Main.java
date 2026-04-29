@@ -6,6 +6,7 @@ package com.mojang.slicer;
 import com.mojang.slicer.Box;
 import com.mojang.slicer.InputFile;
 import com.mojang.slicer.OutputFile;
+import com.mojang.slicer.SimpleOutputFile;
 import com.mojang.slicer.Slicer;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class Main {
     private static OutputFile mapDecoration(final String path, final int index) {
         final int x = index % 16;
         final int y = index / 16;
-        return new OutputFile(
+        return new SimpleOutputFile(
             "assets/minecraft/textures/map/decorations/" + path + ".png",
             new Box(x * 8, y * 8, 8, 8, 128, 128)
         );

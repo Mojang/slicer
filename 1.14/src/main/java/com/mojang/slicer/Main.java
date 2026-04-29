@@ -31,7 +31,7 @@ public class Main {
     };
 
     private static OutputFile gridSprite(final String path, final int x, final int y, final int w, final int h, final int xOff, final int yOff, final int xScale, final int yScale) {
-        return new OutputFile(path, b256(xScale * x + xOff, yScale * y + yOff, w * xScale, h * yScale));
+        return new SimpleOutputFile(path, b256(xScale * x + xOff, yScale * y + yOff, w * xScale, h * yScale));
     }
 
     private static OutputFile painting(final String path, final int x, final int y, final int w, final int h) {
@@ -47,7 +47,7 @@ public class Main {
     }
 
     private static OutputFile explosion(final String path, final int x, final int y) {
-        return new OutputFile("assets/minecraft/textures/particle/" + path + ".png", b128(32 * x, 32 * y, 32, 32));
+        return new SimpleOutputFile("assets/minecraft/textures/particle/" + path + ".png", b128(32 * x, 32 * y, 32, 32));
     }
 
     private static OutputFile particle(final String path, final int x, final int y) {
@@ -59,7 +59,7 @@ public class Main {
     }
 
     private static OutputFile sweep(final int i, final int x, final int y) {
-        return new OutputFile("assets/minecraft/textures/particle/sweep_" + i + ".png", new Box(32 * x, 16 * y, 32, 16, 128, 32)).apply(SQUARE);
+        return new SimpleOutputFile("assets/minecraft/textures/particle/sweep_" + i + ".png", new Box(32 * x, 16 * y, 32, 16, 128, 32)).apply(SQUARE);
     }
 
     private static InputFile input(final String path, final OutputFile... outputs) {
@@ -226,7 +226,7 @@ public class Main {
             particle("drip_fall", 1, 7),
             particle("drip_land", 2, 7),
 
-            new OutputFile("assets/minecraft/textures/entity/fishing_hook.png", b256(8 * 1, 8 * 2, 8, 8))
+            new SimpleOutputFile("assets/minecraft/textures/entity/fishing_hook.png", b256(8 * 1, 8 * 2, 8, 8))
         ),
         input("assets/minecraft/textures/entity/explosion.png",
             explosion("explosion_0", 0, 0),
