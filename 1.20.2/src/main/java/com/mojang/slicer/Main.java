@@ -3,14 +3,12 @@
 
 package com.mojang.slicer;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-@ParametersAreNonnullByDefault
 public class Main {
     private static final Box STANDARD_CONTAINER_BOX = new Box(0, 0, 176, 166, 256, 256);
     private static final String BUTTON_WIDGET_METADATA = """

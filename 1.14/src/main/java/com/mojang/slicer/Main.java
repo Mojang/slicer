@@ -3,13 +3,11 @@
 
 package com.mojang.slicer;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-@ParametersAreNonnullByDefault
 public class Main {
     private static Box b256(final int x, final int y, final int w, final int h) {
         return new Box(x, y, w, h, 256, 256);

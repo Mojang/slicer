@@ -2,9 +2,8 @@
 // Licensed under the MIT license.
 
 package com.mojang.slicer;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@ParametersAreNonnullByDefault
 public class InputFile {
     private final String path;
     private final List<OutputFile> outputs = new ArrayList<>();
@@ -30,7 +28,7 @@ public class InputFile {
         return this;
     }
 
-    public void process(final Path inputRoot, final Path outputRoot, @Nullable final Path leftoverRoot) throws IOException {
+    public void process(final Path inputRoot, final Path outputRoot, final @Nullable Path leftoverRoot) throws IOException {
         final Path inputPath = inputRoot.resolve(this.path);
         if (Files.exists(inputPath)) {
             try (final InputStream is = Files.newInputStream(inputPath)) {

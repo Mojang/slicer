@@ -3,8 +3,7 @@
 
 package com.mojang.slicer;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.Nullable;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -16,15 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-@ParametersAreNonnullByDefault
 public class OutputFile {
     private static final Color REMOVED_MARKER = new Color(128, 0, 0, 128);
 
     private final String path;
     private final Box box;
     private final List<UnaryOperator<BufferedImage>> transformers = new ArrayList<>();
-    @Nullable
-    private String metadata;
+    private @Nullable String metadata;
 
     public OutputFile(final String path, final Box box) {
         this.path = path;

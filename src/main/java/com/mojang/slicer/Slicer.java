@@ -3,8 +3,8 @@
 
 package com.mojang.slicer;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.Nullable;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -18,14 +18,12 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Collections;
 
-@ParametersAreNonnullByDefault
 public class Slicer {
     private final Path inputPath;
     private final Path outputPath;
-    @Nullable
-    private final Path leftoverPath;
+    private final @Nullable Path leftoverPath;
 
-    public Slicer(final Path inputPath, final Path outputPath, @Nullable final Path leftoverPath) {
+    public Slicer(final Path inputPath, final Path outputPath, final @Nullable Path leftoverPath) {
         this.inputPath = inputPath;
         this.outputPath = outputPath;
         this.leftoverPath = leftoverPath;
@@ -66,7 +64,7 @@ public class Slicer {
         }
     }
 
-    private static void process(final Collection<InputFile> inputs, final Path inputPath, final Path outputPath, @Nullable final Path leftoverPath) throws IOException {
+    private static void process(final Collection<InputFile> inputs, final Path inputPath, final Path outputPath, final @Nullable Path leftoverPath) throws IOException {
         for (final InputFile input : inputs) {
             input.process(inputPath, outputPath, leftoverPath);
         }

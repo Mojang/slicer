@@ -22,6 +22,7 @@ repositories {
 dependencies {
     implementation rootProject
     compileOnly 'com.google.code.findbugs:jsr305:2.0.1'
+    implementation 'org.jspecify:jspecify:1.0.0'
 }
 
 jar {

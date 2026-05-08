@@ -8,11 +8,9 @@ import com.mojang.slicer.InputFile;
 import com.mojang.slicer.OutputFile;
 import com.mojang.slicer.Slicer;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.util.List;
 
-@ParametersAreNonnullByDefault
 public class Main {
     private static OutputFile mapDecoration(final String path, final int index) {
         final int x = index % 16;
