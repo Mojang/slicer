@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-package com.mojang.slicer;
+package com.mojang.slicer.library;
 
 public record Box(int x, int y, int w, int h, int totalW, int totalH) {
     public int scaleX(final int imgWidth) {

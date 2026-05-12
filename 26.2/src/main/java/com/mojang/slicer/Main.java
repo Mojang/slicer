@@ -3,6 +3,14 @@
 
 package com.mojang.slicer;
 
+import com.mojang.slicer.library.Box;
+import com.mojang.slicer.library.InputFile;
+import com.mojang.slicer.library.MultipartOutputFile;
+import com.mojang.slicer.library.OutputFile;
+import com.mojang.slicer.library.SimpleOutputFile;
+import com.mojang.slicer.library.Slicer;
+import com.mojang.slicer.library.TransformedBox;
+
 import java.io.IOException;
 import java.util.List;
 

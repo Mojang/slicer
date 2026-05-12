@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-package com.mojang.slicer;
+package com.mojang.slicer.library;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-import static com.mojang.slicer.OutputFile.REMOVED_MARKER;
+import static com.mojang.slicer.library.OutputFile.REMOVED_MARKER;
 
 public record TransformedBox(
         Box box,

@@ -3,11 +3,11 @@
 
 package com.mojang.slicer;
 
-import com.mojang.slicer.Box;
-import com.mojang.slicer.InputFile;
-import com.mojang.slicer.OutputFile;
-import com.mojang.slicer.SimpleOutputFile;
-import com.mojang.slicer.Slicer;
+import com.mojang.slicer.library.Box;
+import com.mojang.slicer.library.InputFile;
+import com.mojang.slicer.library.OutputFile;
+import com.mojang.slicer.library.SimpleOutputFile;
+import com.mojang.slicer.library.Slicer;
 
 import java.io.IOException;
 import java.util.List;

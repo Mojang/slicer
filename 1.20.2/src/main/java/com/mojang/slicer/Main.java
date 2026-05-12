@@ -3,6 +3,12 @@
 
 package com.mojang.slicer;
 
+import com.mojang.slicer.library.Box;
+import com.mojang.slicer.library.InputFile;
+import com.mojang.slicer.library.OutputFile;
+import com.mojang.slicer.library.SimpleOutputFile;
+import com.mojang.slicer.library.Slicer;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
