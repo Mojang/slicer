@@ -26,7 +26,10 @@ public class MultipartOutputFile extends OutputFile {
 
     @Override
     public void process(final Path root, final Path imagePath, final BufferedImage inputImage, final Graphics leftover) throws IOException {
-        BufferedImage outputImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
+        final TransformedBox firstOutput = boxes.get(0);
+        final int outputWidth = this.width * inputImage.getWidth() / firstOutput.box().totalW();
+        final int outputHeight = this.height * inputImage.getHeight() / firstOutput.box().totalH();
+        BufferedImage outputImage = new BufferedImage(outputWidth, outputHeight, BufferedImage.TYPE_INT_ARGB);
         for (TransformedBox box : boxes) {
             box.process(inputImage, outputImage, leftover);
         }

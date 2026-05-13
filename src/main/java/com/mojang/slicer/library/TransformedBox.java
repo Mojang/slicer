@@ -36,7 +36,9 @@ public record TransformedBox(
         leftover.fillRect(x, y, w, h);
 
         final Graphics2D graphics = outputImage.createGraphics();
-        graphics.drawImage(subImage, offsetX, offsetY, null);
+        final int offsetXScaled = offsetX * inputImage.getWidth() / box.totalW();
+        final int offsetYScaled = offsetY * inputImage.getHeight() / box.totalH();
+        graphics.drawImage(subImage, offsetXScaled, offsetYScaled, null);
         graphics.dispose();
     }
 
