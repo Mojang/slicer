@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class InputFile {
     private final String path;
@@ -28,25 +29,27 @@ public class InputFile {
         return this;
     }
 
-    public void process(final Path inputRoot, final Path outputRoot, final @Nullable Path leftoverRoot) throws IOException {
+    public void process(final Path inputRoot, final Path outputRoot, final Map<String, BufferedImage> leftovers) throws IOException {
         final Path inputPath = inputRoot.resolve(this.path);
         if (Files.exists(inputPath)) {
             try (final InputStream is = Files.newInputStream(inputPath)) {
                 final BufferedImage image = ImageIO.read(is);
-                final BufferedImage leftoverImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-                final Graphics2D leftoverGraphics = leftoverImage.createGraphics();
-                leftoverGraphics.drawImage(image, 0, 0, null);
+                BufferedImage leftoverImage = leftovers.get(this.path);
+                final Graphics2D leftoverGraphics;
+                if (leftoverImage == null) {
+                    leftoverImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                    leftovers.put(this.path, leftoverImage);
+                    leftoverGraphics = leftoverImage.createGraphics();
+                    leftoverGraphics.drawImage(image, 0, 0, null);
+                } else {
+                    leftoverGraphics = leftoverImage.createGraphics();
+                }
 
                 for (final OutputFile outputFile : outputs) {
                     outputFile.process(outputRoot, inputPath, image, leftoverGraphics);
                 }
 
                 leftoverGraphics.dispose();
-
-                if (leftoverRoot != null) {
-                    final Path leftoverPath = leftoverRoot.resolve(this.path);
-                    Slicer.writeImage(leftoverPath, leftoverImage);
-                }
             }
         } else {
             System.err.println("Input file " + inputPath.toAbsolutePath() + " not found, skipping!");
